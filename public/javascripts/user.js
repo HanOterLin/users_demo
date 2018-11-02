@@ -19,12 +19,12 @@ $(function () {
             var currUserPwd = $('#add_user_pwd').val();
 
             var data = {
-                "name": currUserName,
-                "email": currUserEmail,
-                "pwd": currUserPwd
+                "user_name": currUserName,
+                "user_email": currUserEmail,
+                "user_pwd": currUserPwd
             };
             $.ajax({
-                url: "user/add-user",
+                url: "users/add-user",
                 data: data,
                 method: "post",
                 success: function (res) {
@@ -51,13 +51,13 @@ $(function () {
             var currUserId = $('#edit_user_id').val();
 
             var data = {
-                "id": currUserId,
-                "name": currUserName,
-                "email": currUserEmail,
-                "pwd": currUserPwd
+                "user_id": currUserId,
+                "user_name": currUserName,
+                "user_email": currUserEmail,
+                "user_pwd": currUserPwd
             };
             $.ajax({
-                url: "user/update-user",
+                url: "users/update-user",
                 data: data,
                 method: "post",
                 success: function (res) {
@@ -81,7 +81,7 @@ $(function () {
         $.ajax({
             method: 'get',
             data: '',
-            url: "user/all-user",
+            url: "users/all-users",
             success: function (res) {
                 if (res.code === 0) {
                     setUserTable(res.data);
@@ -111,20 +111,22 @@ $(function () {
             sEmptyTable: "No data available in table"
         }
         dataTableOption.columns = [{
-            "data": "u_name"
+            "data": "user_name"
         }, {
-            "data": "u_email"
+            "data": "user_email"
         }, {
-            "data": "u_pwd"
+            "data": "user_pwd"
+        }, {
+            "data": "user_is_online"
         }, {
             width: '5%',
             render: function (data, type, full) {
-                return '<span class="glyphicon glyphicon-pencil" aria-hidden="true" user_id = ' + full.u_uuid + '></span>';
+                return '<span class="glyphicon glyphicon-pencil" aria-hidden="true" user_id = ' + full.user_id + '></span>';
             }
         }, {
             width: '5%',
             render: function (data, type, full) {
-                return '<span class="rm_button glyphicon glyphicon-remove-sign" aria-hidden="true" user_id = ' + full.u_uuid + '></span>'
+                return '<span class="rm_button glyphicon glyphicon-remove-sign" aria-hidden="true" user_id = ' + full.user_id + '></span>'
             }
         }];
 
@@ -154,7 +156,7 @@ $(function () {
                 "id": currUserId
             };
             $.ajax({
-                url: "user/remove-user",
+                url: "users/remove-user",
                 data: data,
                 method: "post",
                 success: function (res) {

@@ -9,7 +9,8 @@ setGlobalPath(APP, 'routes');
 setGlobalPath(APP, 'models');
 setGlobalPath(APP, 'lib');
 
-APP.lib.db_util.init('postgres://postgres:admin@localhost:5432/demo')
+const dbUtil = require(APP.lib.db_util);
+dbUtil.init('postgres://postgres:admin@localhost:5432/demo')
     .then(db => {
         APP.db = db;
     });
@@ -24,7 +25,7 @@ function setGlobalPath(APP, folder) {
     try{
         fs.readdirSync(dir)
             .forEach(function (file) {
-                if (!file && file.slice(-3) === '.js'){
+                if (file && file.slice(-3) === '.js'){
                     let fileName = file.slice(0, file.indexOf('.'));
                     APP[folder][fileName] = path.join(dir, fileName);
                 }

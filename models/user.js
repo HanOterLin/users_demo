@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) =>
             allowNull: false
         },
 
-        user_password: {
+        user_pwd: {
             type: DataTypes.STRING,
             allowNull: false
         },
